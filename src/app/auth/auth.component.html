@@ -1,0 +1,39 @@
+<div class="container" style="margin-top: 6rem;">
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Login</h4>
+          <p class="card-category">Bem-vindo ao Projeto Core</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="formLogin" class="form" novalidate>
+            <mat-form-field class="example-full-width" [ngClass]="{'has-success': formLogin.controls['userName'].valid, 'has-danger': formLogin.controls['userName'].invalid && (formLogin.controls['userName'].touched || formLogin.controls['userName'].dirty)}">
+              <input matInput placeholder="Nome de Usuário" formControlName="userName">
+              <span class="form-control-feedback">
+                <i class="material-icons" *ngIf="formLogin.controls['userName'].valid">done</i>
+                <i class="material-icons" *ngIf="formLogin.controls['userName'].invalid && (formLogin.controls['userName'].touched || formLogin.controls['userName'].dirty)">clear</i>
+              </span>
+            </mat-form-field>
+            
+            <mat-form-field class="example-full-width" [ngClass]="{'has-success': formLogin.controls['password'].valid, 'has-danger': formLogin.controls['password'].invalid && (formLogin.controls['password'].touched || formLogin.controls['password'].dirty)}">
+              <input matInput placeholder="Senha" type="password" formControlName="password">
+              <span class="form-control-feedback">
+                <i class="material-icons" *ngIf="formLogin.controls['password'].valid">done</i>
+                <i class="material-icons" *ngIf="formLogin.controls['password'].invalid && (formLogin.controls['password'].touched || formLogin.controls['password'].dirty)">clear</i>
+              </span>
+            </mat-form-field>
+
+            <button type="submit" class="btn btn-primary btn-wd pull-right" [disabled]="formLogin.invalid" (click)="login()">
+              ENTRAR
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div _ngcontent-aym-c2="" class="text-center">
+    <p _ngcontent-aym-c2="">Desenvolvido por O. M. M.</p>
+  </div>
+</div>

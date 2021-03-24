@@ -1,0 +1,11 @@
+.file-upload {
+    border-radius: 50px;
+}
+
+.avatar {
+    width: 130px !important;
+    height: 130px !important;
+    position: relative;
+    overflow: hidden;
+    object-fit: cover;
+}
