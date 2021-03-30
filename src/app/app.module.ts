@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AuthModule } from './auth/auth.module';
 import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -35,6 +36,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ToastrModule.forRoot(),
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     AuthModule,
+    MatTooltipModule,
   ],
   declarations: [
     AppComponent,

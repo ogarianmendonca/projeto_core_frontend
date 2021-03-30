@@ -126,19 +126,22 @@ export class NavbarComponent implements OnInit {
         var titlee = this.location.prepareExternalUrl(this.location.path());
         if (titlee.charAt(0) === '#') {
             titlee = titlee.slice(1);
-            // titlee = titlee.slice(2);
         }
 
-        // var t = titlee.split('/');
+        let t = titlee.split('/');
+        let title;
         for (var item = 0; item < this.listTitles.length; item++) {
-            if (this.listTitles[item].path === titlee) {
+            if (this.listTitles[item].path == titlee) {
                 return this.listTitles[item].title;
             }
-            // else if (t.length > 2) {
-            //     return t[2];
-            // }
+
+            let path = '/' + t[1] + '/' + t[2];
+            if (t.length > 2 && this.listTitles[item].path != path) {
+                title = t[2];
+            }
         }
-        return 'Dashboard';
+
+        return title.charAt(0).toUpperCase() + title.slice(1);
     }
 
     buscaUsuarioLogado() {

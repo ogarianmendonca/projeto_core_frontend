@@ -1,0 +1,121 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="input-group no-border">
+                  <input type="text" [(ngModel)]="filtroLista" class="form-control" placeholder="Pesquisar...">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="now-ui-icons ui-1_zoom-bold"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-4 offset-md-4 text-right" *ngIf="acaoPermitida">
+                <a class="btn btn-info btn-round" [routerLink]="['/usuarios/cadastrar']">
+                  <i class="now-ui-icons ui-1_simple-add"></i>
+                  Cadastrar Usuário
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th class="th-img"></th>
+                  <th>
+                    Nome
+                  </th>
+                  <th>
+                    E-mail
+                  </th>
+                  <th>
+                    Cadastrado
+                  </th>
+                  <th>
+                    Status
+                  </th>
+                  <th class="th-acoes" *ngIf="acaoPermitida">
+                    Ações
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let usuario of usuariosFiltrados">
+                    <td class="text-center">
+                      <img class="avatar" *ngIf="usuario?.image !== 'sem_imagem' && usuario?.image !== null"
+                        src="{{usuario?.image}}" alt="">
+                      <img class="avatar" *ngIf="usuario?.image === 'sem_imagem' || usuario?.image === null"
+                        src="../assets/img/sem-imagem.jpg" alt="">
+                    </td>
+                    <td>
+                      {{usuario?.name}}
+                    </td>
+                    <td>
+                      {{usuario?.email}}
+                    </td>
+                    <td>
+                      {{usuario?.createdAt | date:'dd/MM/y'}}
+                    </td>
+                    <td>
+                      <span [hidden]="usuario?.ativo == false" style="color:#00BCD4;"><b>Ativo</b></span>
+                      <span [hidden]="usuario?.ativo == true" style="color:#f96332;"><b>Inativo</b></span>
+                    </td>
+                    <td class="td-actions" *ngIf="acaoPermitida">
+                      <a [routerLink]="['/usuarios/editar/', usuario?.id]" class="btn btn-info btn-round"
+                        placement="top" matTooltip="Editar Usuário!" [matTooltipPosition]="'above'">
+                        <span class="material-icons">edit</span>
+                      </a>
+                      <button (click)="openModalExcluirUsuario(usuario)" data-toggle="modal"
+                        data-target="#modalExclusaoPerfil" type="button" class="btn btn-danger btn-round"
+                        placement="top" matTooltip="Excluir Usuário!" [matTooltipPosition]="'above'">
+                        <span class="material-icons">delete</span>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EXCLUIR USUÁRIO -->
+  <div class="modal modal-angular fade" id="modalExclusaoPerfil" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Exclusão de perfil</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>
+              Tem certeza de que deseja excluir o perfil
+              <span class="text-danger">{{usuario?.name}}</span>?
+            </strong>
+          </p>
+          <p>
+            Todas as informações associadas a este perfil de usuário serão excluídas permanentemente.
+            <span class="text-danger">Esta operação não pode ser desfeita.</span>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="excluirUsuario()">Sim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

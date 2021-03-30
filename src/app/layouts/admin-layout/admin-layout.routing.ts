@@ -5,10 +5,16 @@ import { NotificationsComponent } from 'app/pages/notifications/notifications.co
 import { TableListComponent } from 'app/pages/table-list/table-list.component';
 import { TypographyComponent } from 'app/pages/typography/typography.component';
 import { UserProfileComponent } from 'app/pages/user-profile/user-profile.component';
+import { UsuariosComponent } from 'app/pages/usuarios/usuarios.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
+    {
+        path: 'usuarios',
+        component: UsuariosComponent,
+        loadChildren: '../../pages/usuarios/usuarios.module#UsuariosModule'
+    },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },

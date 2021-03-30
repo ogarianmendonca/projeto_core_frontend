@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from 'app/models/usuario';
+import { AuthService } from 'app/services/auth.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 declare const $: any;
 declare interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
-    class: string;
+  path: string;
+  title: string;
+  icon: string;
+  class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
-    { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
-    { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
+  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+  { path: '/user-profile', title: 'Perfil', icon: 'person', class: '' },
+  { path: '/usuarios/listar', title: 'Usuários',  icon:'supervisor_account', class: '' },
+  { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
+  { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
+  { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
+  { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
 ];
 
 @Component({
@@ -24,15 +28,42 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  public usuario: Usuario;
+
+  constructor(
+    private authService: AuthService,
+    private ngxLoader: NgxUiLoaderService
+  ) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+
+    this.atualizaUsuarioLogado();
   }
+
   isMobileMenu() {
-      if ($(window).width() > 991) {
-          return false;
-      }
-      return true;
+    if ($(window).width() > 991) {
+      return false;
+    }
+    return true;
   };
+
+  atualizaUsuarioLogado() {
+    this.authService.atualizarPerfil
+      .subscribe((resp: Usuario) => {
+        this.usuario = resp;
+
+        if (!this.authService.getToken()) {
+          this.authService.logout();
+        }
+      });
+  }
+
+  logout(e) {
+    this.ngxLoader.start();
+    e.preventDefault();
+
+    this.authService.logout();
+    this.ngxLoader.stop();
+  }
 }

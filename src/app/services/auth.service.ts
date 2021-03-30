@@ -26,11 +26,12 @@ export class AuthService {
   }
 
   logout(): void {
-  //   this.http.get(environment.api_url + 'auth/logout').subscribe(resp => {
+    // TODO: IMPLEMENTAR NO BACK-END INVALIDAÇÃO DO TOKEN AO EFETUAR LOGOFF
+    // this.http.get(environment.api_url + 'auth/logout').subscribe(resp => {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       this.router.navigate(['auth/login']);
-  //   });
+    // });
   }
   
   getUsuarioAutenticado(): Observable<Usuario> {

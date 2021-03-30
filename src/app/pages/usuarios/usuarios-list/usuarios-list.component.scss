@@ -1,0 +1,24 @@
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.th-img {
+    padding: 1.75rem !important;
+}
+
+.input-group {
+    margin-top: 10px !important;
+}
+
+.th-acoes {
+    min-width: 92px;
+}
+
+.table .td-actions .btn {
+    margin: 1px;
+}

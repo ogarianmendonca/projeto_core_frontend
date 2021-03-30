@@ -21,25 +21,25 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  // getUsuarios (pagina = 1): Observable<Usuario[]> {
-  //   return this.http.get<Usuario[]>(this.urlApiUsuario + '?page=' + pagina);
-  // }
+  getUsuarios (): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.urlApiUsuario);
+  }
 
-  // cadastrarUsuario (dados): Observable<Usuario> {
+  getUsuarioId(id) {
+    return this.http.get<Usuario>(this.urlApiUsuario + id);
+  }
+
+  // cadastrar (dados): Observable<Usuario> {
   //   return this.http.post<Usuario>(this.urlApiUsuario, dados, httpOptions);
   // }
 
-  // getUsuarioId(id) {
-  //   return this.http.get<Usuario>(this.urlApiUsuario + id);
-  // }
-
-  editarUsuario (id, dados): Observable<Usuario> {
+  editar (id, dados): Observable<Usuario> {
     return this.http.put<Usuario>(this.urlApiUsuario + id, dados, httpOptions);
   }
 
-  // excluirUsuario(id) {
-  //   return this.http.delete(this.urlApiUsuario + id);
-  // }
+  excluir(id) {
+    return this.http.delete(this.urlApiUsuario + id);
+  }
 
   atualizarSenha (id, dados): Observable<any> {
     return this.http.put<any>(this.urlApiUsuario + 'atualizar-senha/' + id, dados, httpOptions);
