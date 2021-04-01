@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col-md-8">
 
-        <!-- CARD PARA ALTERAR DADOS PERFIL -->
+        <!-- CARD PARA ALTERAR DADOS -->
         <div class="card" *ngIf="abrirAtualizaSenha == false">
           <div class="card-header card-header-info">
-            <h4 class="card-title">Editar Perfil</h4>
+            <h4 class="card-title">Editar Usuário</h4>
           </div>
           <div class="card-body">
             <form [formGroup]="formUsuario" (ngSubmit)="editaUsuario()" *ngIf="usuario">
@@ -82,7 +82,7 @@
                 </div>
               </div>
 
-              <button mat-raised-button type="submit" class="btn btn-info pull-right">Salvar</button>
+              <button mat-raised-button [disabled]="formUsuario.invalid" type="submit" class="btn btn-info pull-right">Salvar</button>
               <div class="clearfix"></div>
             </form>
           </div>

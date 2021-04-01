@@ -29,9 +29,9 @@ export class UsuarioService {
     return this.http.get<Usuario>(this.urlApiUsuario + id);
   }
 
-  // cadastrar (dados): Observable<Usuario> {
-  //   return this.http.post<Usuario>(this.urlApiUsuario, dados, httpOptions);
-  // }
+  cadastrar (dados): Observable<Usuario> {
+    return this.http.post<Usuario>(this.urlApiUsuario, dados, httpOptions);
+  }
 
   editar (id, dados): Observable<Usuario> {
     return this.http.put<Usuario>(this.urlApiUsuario + id, dados, httpOptions);

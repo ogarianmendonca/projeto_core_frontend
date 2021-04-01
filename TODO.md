@@ -1,32 +1,30 @@
 O QUE DEVE SER FEITO:
-    [] - Auth
-        [] - Auth.Component
-        [] - Auth.html
-    [] - Guard
-        [] - Auth.Guard
-    [] - Interceptor
-        [] - Token.Interceptor
-        [] - Refresh-Token.Interceptor
-    [] - Models
-        [] - Usuario.Interface
-        [] - Role.Interface
-    [] - Services
-        [] - Auth.Service
-        [] - Role.Service
-        [] - Usuario.Service
-    [] - App.Error-Handle
+    [OK] - Auth
+        [OK] - Auth.Component
+        [OK] - Auth.html
+    [OK] - Guard
+        [OK] - Auth.Guard
+    [OK] - Interceptor
+        [OK] - Token.Interceptor
+        [OK] - Refresh-Token.Interceptor
+    [OK] - Models
+        [OK] - Usuario.Interface
+        [OK] - Role.Interface
+    [OK] - Services
+        [OK] - Auth.Service
+        [OK] - Role.Service
+        [OK] - Usuario.Service
+    [OK] - App.Error-Handle
 
-MÓDULOS
+MÓDULOS:
     [] - AUTH
-        [] - LOGIN
-        [] - LOGOFF
+        [OK] - LOGIN
+        [] - LOGOFF (Invalidar token)
     
-    [] - USUARIO
-        [] - CADASTRAR
-        [] - EDITAR
-        [] - EXCLUIR
-        [] - LISTAR
+    [OK] - USUARIO
+        [OK] - CADASTRAR
+        [OK] - EDITAR
+        [OK] - EXCLUIR
+        [OK] - LISTAR
+        [] - Paginação da listagem de usuários
     
-    [] - ROLES
-        [] - CRIAR
-        [] - EXCLUIR/INATIVAR

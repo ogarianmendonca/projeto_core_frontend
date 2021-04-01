@@ -12,7 +12,6 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-
   public focus1: boolean = false;
   public focus2: boolean = false;
   public formLogin: FormGroup;

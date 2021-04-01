@@ -4,8 +4,10 @@
       <div class="card">
         <div class="card-header card-header-primary text-center">
           <h3 class="card-title">Login</h3>
+          <br>
           <p class="card-category">Bem-vindo ao Projeto Core</p>
         </div>
+        
         <div class="card-body">
           <form [formGroup]="formLogin" class="form" novalidate>
             <mat-form-field class="example-full-width" [ngClass]="{'has-success': formLogin.controls['userName'].valid, 'has-danger': formLogin.controls['userName'].invalid && (formLogin.controls['userName'].touched || formLogin.controls['userName'].dirty)}">
@@ -31,9 +33,5 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div _ngcontent-aym-c2="" class="text-center">
-    <p _ngcontent-aym-c2="">Desenvolvido por O. M. M.</p>
   </div>
 </div>

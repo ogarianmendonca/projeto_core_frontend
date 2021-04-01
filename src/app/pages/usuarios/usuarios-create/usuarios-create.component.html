@@ -1,3 +1,120 @@
-<p>
-  usuarios-create works!
-</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10">
+
+        <div class="card">
+          <div class="card-header card-header-info">
+            <h4 class="card-title">Cadastrar Usuário</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="formUsuario" (ngSubmit)="cadastraUsuario()">
+              <div class="row">
+                <div class="col-md-5">
+                  <mat-form-field class="example-full-width"
+                    [ngClass]="{'has-success': formUsuario.controls['userName'].valid, 'has-danger': formUsuario.controls['userName'].invalid && (formUsuario.controls['userName'].touched || formUsuario.controls['userName'].dirty)}">
+                    <input formControlName="userName" matInput placeholder="Nome de Usuário" type="text">
+                    <span class="form-control-feedback">
+                      <i class="material-icons" *ngIf="formUsuario.controls['userName'].valid">done</i>
+                      <i class="material-icons"
+                        *ngIf="formUsuario.controls['userName'].invalid && (formUsuario.controls['userName'].touched || formUsuario.controls['userName'].dirty)">clear</i>
+                    </span>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-md-7">
+                  <mat-form-field class="example-full-width"
+                    [ngClass]="{'has-success': formUsuario.controls['name'].valid, 'has-danger': formUsuario.controls['name'].invalid && (formUsuario.controls['name'].touched || formUsuario.controls['name'].dirty)}">
+                    <input formControlName="name" matInput placeholder="Nome Completo" type="text">
+                    <span class="form-control-feedback">
+                      <i class="material-icons" *ngIf="formUsuario.controls['name'].valid">done</i>
+                      <i class="material-icons"
+                        *ngIf="formUsuario.controls['name'].invalid && (formUsuario.controls['name'].touched || formUsuario.controls['name'].dirty)">clear</i>
+                    </span>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width"
+                    [ngClass]="{'has-success': formUsuario.controls['email'].valid, 'has-danger': formUsuario.controls['email'].invalid && (formUsuario.controls['email'].touched || formUsuario.controls['email'].dirty)}">
+                    <input formControlName="email" matInput placeholder="Email" type="email">
+                    <span class="form-control-feedback">
+                      <i class="material-icons" *ngIf="formUsuario.controls['email'].valid">done</i>
+                      <i class="material-icons"
+                        *ngIf="formUsuario.controls['email'].invalid && (formUsuario.controls['email'].touched || formUsuario.controls['email'].dirty)">clear</i>
+                    </span>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width"
+                    [ngClass]="{'has-success': formUsuario.controls['password'].valid, 'has-danger': formUsuario.controls['password'].invalid && (formUsuario.controls['password'].touched || formUsuario.controls['password'].dirty)}">
+                    <input formControlName="password" matInput placeholder="Senha" type="password">
+                    <span class="form-control-feedback">
+                      <i class="material-icons" *ngIf="formUsuario.controls['password'].valid">done</i>
+                      <i class="material-icons"
+                        *ngIf="formUsuario.controls['password'].invalid && (formUsuario.controls['password'].touched || formUsuario.controls['password'].dirty)">clear</i>
+                    </span>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width"
+                    [ngClass]="{'has-success': formUsuario.controls['confirmPassword'].valid, 'has-danger': formUsuario.controls['confirmPassword'].invalid && (formUsuario.controls['confirmPassword'].touched || formUsuario.controls['confirmPassword'].dirty)}">
+                    <input formControlName="confirmPassword" matInput placeholder="Confirmação de Senha"
+                      type="password">
+                    <span class="form-control-feedback">
+                      <i class="material-icons" *ngIf="formUsuario.controls['confirmPassword'].valid">done</i>
+                      <i class="material-icons"
+                        *ngIf="formUsuario.controls['confirmPassword'].invalid && (formUsuario.controls['confirmPassword'].touched || formUsuario.controls['confirmPassword'].dirty)">clear</i>
+                    </span>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Imagem do Perfil</label>
+                    <br>
+                    <div class="file-upload btn btn-info">
+                      <span>Selecionar Imagem</span>
+                      <input type="file" id="imagem" name="imagem" (change)="carregaImagem($event)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+              <h4 class="card-title">Funções</h4>
+              <div class="row">
+                <div class="col-md-6" *ngFor="let role of roles">
+                  <div class="form-check">
+                    <label class="form-check-label">                      
+                      <input class="form-check-input" 
+                        (change)="onCheckboxChange($event)"
+                        type="checkbox"
+                        [value]="role?.name" [checked]="rolesSelecionado !== undefined &&
+                          rolesSelecionado?.value.indexOf(role?.name) !== -1">
+                      {{role?.name}}
+                      <span class="form-check-sign">
+                        <span class="check"></span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <button mat-raised-button [disabled]="formUsuario.invalid" type="submit" class="btn btn-info pull-right">Salvar</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
