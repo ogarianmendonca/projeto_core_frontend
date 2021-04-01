@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Role } from 'app/models/role';
 import { Usuario } from 'app/models/usuario';
 import { AuthService } from 'app/services/auth.service';
+import { RoleService } from 'app/services/role.service';
 import { UsuarioService } from 'app/services/usuario.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -20,6 +22,10 @@ export class UsuariosEditComponent implements OnInit {
   public abrirAtualizaSenha: boolean = false;
   public usuarioLogadoIsAdministrador: boolean = false;
 
+  public roles: Role[];
+  public rolesSelecionado: FormArray;
+  public formRoles: FormGroup;
+  
   constructor(
     private routerActivated: ActivatedRoute,
     private authService: AuthService,
@@ -27,12 +33,14 @@ export class UsuariosEditComponent implements OnInit {
     private ngxLoader: NgxUiLoaderService,
     private usuarioService: UsuarioService,
     private toastr: ToastrService,
+    private roleService: RoleService,
   ) {
   }
 
   ngOnInit() {
     this.buscaUsuarioLogado();
     this.buscaUsuarioSelecionado();
+    this.buscarRoles();
   }
 
   buscaUsuarioLogado() {
@@ -55,6 +63,15 @@ export class UsuariosEditComponent implements OnInit {
       });
   }
 
+  buscarRoles() {
+    this.ngxLoader.start();
+
+    this.roleService.getRoles().subscribe((resp: Role[]) => {
+      this.roles = resp;
+      this.ngxLoader.stop();
+    })
+  }
+
   validaFormUsuario(usuario: Usuario) {
     this.formUsuario = this.formBuilder.group({
       id: [usuario.id],
@@ -62,12 +79,38 @@ export class UsuariosEditComponent implements OnInit {
       name: [usuario.name, [Validators.required]],
       email: [usuario.email, [Validators.required, Validators.email]],
       ativo: [usuario.ativo],
+      roles: [new Array()]
     });
 
     this.formAtualizarSenha = this.formBuilder.group({
       password: [''],
       confirmPassword: ['']
     });
+
+    this.formRoles = this.formBuilder.group({
+      roles: this.formBuilder.array([])
+    });
+
+    this.rolesSelecionado = this.formRoles.get('roles') as FormArray;
+
+    this.usuario.roles.forEach(element => {
+      this.rolesSelecionado.push(new FormControl(element.name));
+    });
+  }
+
+  onCheckboxChange(e) {    
+    if (e.target.checked) {
+      this.rolesSelecionado.push(new FormControl(e.target.value));
+    } else {
+      let i: number = 0;
+      this.rolesSelecionado.controls.forEach((item: FormControl) => {
+        if (item.value == e.target.value) {
+          this.rolesSelecionado.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
   }
 
   carregaImagem(event: any) {
@@ -78,6 +121,10 @@ export class UsuariosEditComponent implements OnInit {
     this.ngxLoader.start();
 
     const id = this.usuario['id'];
+
+    for (var i = 0; i < this.rolesSelecionado.value.length; i++) {
+      this.formUsuario.value.roles.push({'name': this.rolesSelecionado.value[i]});
+    }
 
     if (!this.image) {
       this.usuarioService.editar(id, this.formUsuario.value).subscribe((resp: Usuario) => {
