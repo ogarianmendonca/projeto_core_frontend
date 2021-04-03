@@ -2,7 +2,6 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-
         <div class="card">
           <div class="card-header">
             <div class="row">
@@ -17,7 +16,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-4 offset-md-4 text-right" *ngIf="acaoPermitida">
+              <div class="col-sm-4 offset-md-4 text-right" *ngIf="usuarioLogadoIsAdmin">
                 <a class="btn btn-info btn-round" [routerLink]="['/usuarios/cadastrar']">
                   <i class="now-ui-icons ui-1_simple-add"></i>
                   Cadastrar Usuário
@@ -25,6 +24,7 @@
               </div>
             </div>
           </div>
+
           <div class="card-body">
             <div class="table-responsive">
               <table class="table">
@@ -42,7 +42,7 @@
                   <th>
                     Status
                   </th>
-                  <th class="th-acoes" *ngIf="acaoPermitida">
+                  <th class="th-acoes" *ngIf="usuarioLogadoIsAdmin">
                     Ações
                   </th>
                 </thead>
@@ -67,7 +67,7 @@
                       <span [hidden]="usuario?.ativo == false" style="color:#00BCD4;"><b>Ativo</b></span>
                       <span [hidden]="usuario?.ativo == true" style="color:#f96332;"><b>Inativo</b></span>
                     </td>
-                    <td class="td-actions" *ngIf="acaoPermitida">
+                    <td class="td-actions" *ngIf="usuarioLogadoIsAdmin">
                       <a [routerLink]="['/usuarios/editar/', usuario?.id]" class="btn btn-info btn-round"
                         placement="top" matTooltip="Editar Usuário!" [matTooltipPosition]="'above'">
                         <span class="material-icons">edit</span>
@@ -83,6 +83,24 @@
               </table>
             </div>
           </div>
+        </div>
+
+        <div>
+          <!-- <ngb-pagination 
+            [collectionSize]="totalPaginas" 
+            [(page)]="paginaAtual"
+            size="sm"
+            (pageChange)="loadPage($event)">
+          </ngb-pagination> -->
+
+          <mat-paginator
+            (page)="loadPage($event)"
+            [length]="length"
+            [pageSize]="pageSize"
+            [showFirstLastButtons]="showFirstLastButtons"
+            [pageSizeOptions]="pageSizeOptions"
+            [pageIndex]="pageIndex">
+          </mat-paginator>
         </div>
       </div>
     </div>

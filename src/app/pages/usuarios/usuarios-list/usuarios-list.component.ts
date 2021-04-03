@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { Role } from 'app/models/role';
 import { Usuario } from 'app/models/usuario';
 import { AuthService } from 'app/services/auth.service';
@@ -19,7 +20,14 @@ export class UsuariosListComponent implements OnInit {
   public _filtroLista = '';
   public usuariosFiltrados: Usuario[];
   public usuarioLogado: Usuario;
-  public acaoPermitida: boolean = false;
+  public usuarioLogadoIsAdmin: boolean = false;
+
+  // Paginação
+  public length: number = 500;
+  public pageSize: number = 5;
+  public pageIndex: number = 0;
+  public pageSizeOptions = [5, 10, 25];
+  public showFirstLastButtons: boolean = true;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -46,7 +54,7 @@ export class UsuariosListComponent implements OnInit {
     this.usuarioLogado = this.authService.getUsuarioStorage();
     this.usuarioLogado.roles.forEach(element => {
       if (element.name === 'ADMINISTRADOR') {
-        this.acaoPermitida = true;
+        this.usuarioLogadoIsAdmin = true;
       }
     });
   }
@@ -58,18 +66,21 @@ export class UsuariosListComponent implements OnInit {
     );
   }
 
-  buscarUsuarios() {
+  buscarUsuarios(pagina = 1, totalPorPagina = 5) {
     this.ngxLoader.start();
     
-    this.usuarioService.getUsuarios().subscribe((resp) => {
-      resp.sort(function (a, b) {	
-        return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
-      });
+    this.usuarioService.getUsuarios(pagina, totalPorPagina).subscribe((resp) => {
+      this.length = resp['totalRegistros']; 
+      this.pageIndex =  resp['paginaAtual'] - 1;
       
-      this.usuarios = resp;
-      this.usuariosFiltrados = resp;
+      this.usuarios = resp['results'];
+      this.usuariosFiltrados = resp['results'];
       this.ngxLoader.stop();
     });
+  }
+
+  loadPage(event: PageEvent) {
+    this.buscarUsuarios(event.pageIndex + 1, event.pageSize);
   }
 
   openModalExcluirUsuario(usuario: Usuario) {

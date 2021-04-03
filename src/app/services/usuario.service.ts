@@ -21,8 +21,8 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  getUsuarios (): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.urlApiUsuario);
+  getUsuarios (pagina = 1, totalPorPagina = 5): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.urlApiUsuario + '?page=' + pagina + '&totalPorPagina=' + totalPorPagina);
   }
 
   getUsuarioId(id) {

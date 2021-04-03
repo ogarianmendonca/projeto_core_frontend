@@ -20,7 +20,7 @@ export class UsuariosEditComponent implements OnInit {
   public formAtualizarSenha: FormGroup;
   public image: Set<File>;
   public abrirAtualizaSenha: boolean = false;
-  public usuarioLogadoIsAdministrador: boolean = false;
+  public usuarioLogadoIsAdmin: boolean = false;
 
   public roles: Role[];
   public rolesSelecionado: FormArray;
@@ -47,7 +47,7 @@ export class UsuariosEditComponent implements OnInit {
     var usuario = this.authService.getUsuarioStorage();
     for (var i = 0; i < usuario.roles.length; i++) {
       if (usuario.roles[i].name == "ADMINISTRADOR") {
-        this.usuarioLogadoIsAdministrador = true;
+        this.usuarioLogadoIsAdmin = true;
       }
     }
   }

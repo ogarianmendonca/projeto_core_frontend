@@ -9,6 +9,7 @@ import { ComponentsModule } from './components/components.module';
 import { AuthModule } from './auth/auth.module';
 import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -37,6 +38,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     AuthModule,
     MatTooltipModule,
+    MatPaginatorModule
   ],
   declarations: [
     AppComponent,

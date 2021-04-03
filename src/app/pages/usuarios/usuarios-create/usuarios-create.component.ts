@@ -17,7 +17,7 @@ export class UsuariosCreateComponent implements OnInit {
   public usuario: Usuario;
   public formUsuario: FormGroup;
   public image: Set<File>;
-  public usuarioLogadoIsAdministrador: boolean = false;
+  public usuarioLogadoIsAdmin: boolean = false;
 
   public roles: Role[];
   public rolesSelecionado: FormArray;
@@ -42,7 +42,7 @@ export class UsuariosCreateComponent implements OnInit {
     var usuario = this.authService.getUsuarioStorage();
     for (var i = 0; i < usuario.roles.length; i++) {
       if (usuario.roles[i].name == "ADMINISTRADOR") {
-        this.usuarioLogadoIsAdministrador = true;
+        this.usuarioLogadoIsAdmin = true;
       }
     }
   }
