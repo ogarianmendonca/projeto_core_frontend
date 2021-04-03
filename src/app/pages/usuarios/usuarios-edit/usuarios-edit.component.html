@@ -6,7 +6,17 @@
         <!-- CARD PARA ALTERAR DADOS -->
         <div class="card" *ngIf="abrirAtualizaSenha == false">
           <div class="card-header card-header-info">
-            <h4 class="card-title">Editar Usuário</h4>
+            <div class="row">
+              <div class="col">
+                <h4 class="card-title">Editar Usuário</h4>
+              </div>
+
+              <div class="col text-right">
+                <a [routerLink]="['/usuarios/listar']" class="btn btn-primary btn-sm btn-round">
+                  Voltar
+                </a>
+              </div>
+            </div>
           </div>
           <div class="card-body">
             <form [formGroup]="formUsuario" (ngSubmit)="editaUsuario()" *ngIf="usuario">

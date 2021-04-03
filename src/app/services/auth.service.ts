@@ -10,7 +10,6 @@ import { Usuario } from '../models/usuario';
   providedIn: 'root'
 })
 export class AuthService {
-
   public atualizarPerfil = new EventEmitter<Usuario>();
 
   constructor(
