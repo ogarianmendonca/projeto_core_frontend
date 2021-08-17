@@ -103,6 +103,12 @@ export class UsuariosCreateComponent implements OnInit {
       this.formUsuario.value.roles.push({'name': roles[i]});
     }
 
+    if (this.formUsuario.value.roles.length == 0) {
+      this.showWarning('Obrigatório selecionar uma função para este usuário!');
+      this.ngxLoader.stop();
+      return;
+    }
+
     if (!this.image) {
       this.usuarioService.cadastrar(this.formUsuario.value).subscribe((resp: Usuario) => {
         this.showSucesso('Usuário cadastrado com sucesso!');

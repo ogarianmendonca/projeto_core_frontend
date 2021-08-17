@@ -7,7 +7,7 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="input-group no-border">
-                  <input type="text" [(ngModel)]="filtroLista" class="form-control" placeholder="Pesquisar...">
+                  <input type="text" [(ngModel)]="filtroLista" class="form-control" placeholder="Pesquisar por nome...">
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <i class="now-ui-icons ui-1_zoom-bold"></i>
@@ -72,6 +72,7 @@
                         placement="top" matTooltip="Editar Usuário!" [matTooltipPosition]="'above'">
                         <span class="material-icons">edit</span>
                       </a>
+                      &nbsp;
                       <button (click)="openModalExcluirUsuario(usuario)" data-toggle="modal"
                         data-target="#modalExclusaoPerfil" type="button" class="btn btn-danger btn-round"
                         placement="top" matTooltip="Excluir Usuário!" [matTooltipPosition]="'above'">
